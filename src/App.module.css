@@ -1,0 +1,15 @@
+.container {
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #525252;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(93, 93, 93, 0.1);
+    background-color: #31ff76;
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
