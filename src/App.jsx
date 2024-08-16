@@ -1,30 +1,52 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchContacts } from './redux/contactsOps';
-import ContactForm from './components/ContactForm/ContactForm';
-import ContactList from './components/ContactList/ContactList';
-import SearchBox from './components/SearchBox/SearchBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { fetchContacts } from './redux/contacts/operations';
+import { refreshUser } from './redux/auth/operations';
+import Layout from './components/Layout';
+import HomePage from './pages/HomePage/HomePage';
+import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import ContactsPage from './pages/ContactsPage/ContactsPage';
+import PrivateRoute from './components/PrivateRoute';
+import RestrictedRoute from './components/RestrictedRoute';
 import styles from './App.module.css';
 
 const App = () => {
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(state => state.auth.isRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!isRefreshing) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, isRefreshing]);
+
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <SearchBox />
-      <ContactList />
-    </div>
+    !isRefreshing && (
+      <BrowserRouter>
+        <div className={styles.container}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route path="/register" element={<RestrictedRoute element={<RegistrationPage />} />} />
+              <Route path="/login" element={<RestrictedRoute element={<LoginPage />} />} />
+              <Route path="/contacts" element={<PrivateRoute element={<ContactsPage />} />} />
+            </Route>
+          </Routes>
+        </div>
+      </BrowserRouter>
+    )
   );
 };
 
 export default App;
+
+
 
 
 
