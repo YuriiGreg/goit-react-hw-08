@@ -49,7 +49,7 @@ const contactsSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      /
+
       .addCase(logout.fulfilled, (state) => {
         state.items = [];
         state.loading = false;
