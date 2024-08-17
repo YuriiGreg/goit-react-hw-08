@@ -1,8 +1,20 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { createSelector } from '@reduxjs/toolkit';
 import { deleteContact } from '../../redux/contacts/operations';
-import { selectFilteredContacts } from '../../redux/contacts/slice';
 import styles from './ContactList.module.css';
+
+// Селектори визначаються безпосередньо тут або в окремому файлі
+const selectContacts = (state) => state.contacts.items;
+const selectFilter = (state) => state.filters.name;
+
+const selectFilteredContacts = createSelector(
+  [selectContacts, selectFilter],
+  (contacts, filter) => 
+    contacts.filter(contact => 
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    )
+);
 
 const ContactList = () => {
   const dispatch = useDispatch();
@@ -27,6 +39,7 @@ const ContactList = () => {
 };
 
 export default ContactList;
+
 
 
 

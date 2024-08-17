@@ -1,12 +1,24 @@
-
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const AuthNav = () => (
   <nav>
-    <Link to="/register">Register</Link>
-    <Link to="/login">Login</Link>
+    <NavLink 
+      to="/register" 
+      activeClassName="active"
+      className="nav-link"
+    >
+      Register
+    </NavLink>
+    <NavLink 
+      to="/login" 
+      activeClassName="active"
+      className="nav-link"
+    >
+      Login
+    </NavLink>
   </nav>
 );
 
 export default AuthNav;
+

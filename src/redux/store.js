@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { persistStore } from 'redux-persist';
+import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/slice';
 import contactsReducer from './contacts/slice';
@@ -13,14 +13,18 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-const persistConfig = {
-  key: 'root',
+// Конфігурація для персистенції authReducer
+const authPersistConfig = {
+  key: 'auth',
   storage,
-  blacklist: ['filters'],
+  whitelist: ['token'], // Зберігати тільки 'token'
 };
 
+// Обгортання authReducer з persistReducer
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
 const rootReducer = {
-  auth: authReducer,
+  auth: persistedAuthReducer, // Використовуємо persistReducer для auth
   contacts: contactsReducer,
   filters: filtersReducer,
 };
@@ -38,6 +42,7 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 export { store, persistor };
+
 
 
 

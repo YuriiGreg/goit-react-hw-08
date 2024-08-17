@@ -1,0 +1,9 @@
+/* Navigation.module.css */
+.active {
+    font-weight: bold;
+    color: blue;
+}
+
+.inactive {
+    color: gray;
+}
