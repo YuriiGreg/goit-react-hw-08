@@ -4,7 +4,6 @@ import { createSelector } from '@reduxjs/toolkit';
 import { deleteContact } from '../../redux/contacts/operations';
 import styles from './ContactList.module.css';
 
-// Селектори визначаються безпосередньо тут або в окремому файлі
 const selectContacts = (state) => state.contacts.items;
 const selectFilter = (state) => state.filters.name;
 
