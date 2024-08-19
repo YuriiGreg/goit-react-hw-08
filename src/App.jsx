@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { fetchContacts } from './redux/contacts/operations';
 import { refreshUser } from './redux/auth/operations';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage/HomePage';
@@ -19,12 +18,6 @@ const App = () => {
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (!isRefreshing) {
-      dispatch(fetchContacts());
-    }
-  }, [dispatch, isRefreshing]);
 
   return (
     !isRefreshing && (

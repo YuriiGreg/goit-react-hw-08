@@ -13,18 +13,16 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-// Конфігурація для персистенції authReducer
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'], // Зберігати тільки 'token'
+  whitelist: ['token'], 
 };
 
-// Обгортання authReducer з persistReducer
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
 const rootReducer = {
-  auth: persistedAuthReducer, // Використовуємо persistReducer для auth
+  auth: persistedAuthReducer, 
   contacts: contactsReducer,
   filters: filtersReducer,
 };

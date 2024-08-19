@@ -3,15 +3,12 @@ import axios from 'axios';
 
 const API_URL = 'https://connections-api.goit.global';
 
-// Налаштування базової URL для axios
 axios.defaults.baseURL = API_URL;
 
-// Функція для встановлення токена в заголовки авторизації
 const setAuthHeader = (token) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
 
-// Функція для видалення токена з заголовків авторизації
 const clearAuthHeader = () => {
   delete axios.defaults.headers.common['Authorization'];
 };
@@ -24,7 +21,7 @@ export const register = createAsyncThunk(
       
       const token = response.data.token;
       localStorage.setItem('token', token);
-      setAuthHeader(token); // Встановлюємо токен у заголовки
+      setAuthHeader(token); 
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -40,7 +37,7 @@ export const login = createAsyncThunk(
       
       const token = response.data.token;
       localStorage.setItem('token', token);
-      setAuthHeader(token); // Встановлюємо токен у заголовки
+      setAuthHeader(token);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -55,7 +52,7 @@ export const logout = createAsyncThunk(
       await axios.post('/users/logout');
       
       localStorage.removeItem('token');
-      clearAuthHeader(); // Видаляємо токен із заголовків
+      clearAuthHeader(); 
       return;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -71,7 +68,7 @@ export const refreshUser = createAsyncThunk(
     if (!token) {
       return thunkAPI.rejectWithValue('No token available');
     }
-    setAuthHeader(token); // Встановлюємо токен у заголовки перед запитом
+    setAuthHeader(token);
 
     try {
       const response = await axios.get('/users/current');
