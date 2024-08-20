@@ -1,16 +1,16 @@
-
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "src/index.html",
-      "use": "@vercel/static"
+      "source": "/(.*)",
+      "destination": "/"
     }
   ],
-  "routes": [
+  "redirects": [
     {
-      "src": "/(.*)",
-      "dest": "/src/index.html"
+      "source": "/old-url",
+      "destination": "/new-url",
+      "permanent": true
     }
   ]
 }
+
