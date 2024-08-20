@@ -5,15 +5,13 @@ const AuthNav = () => (
   <nav>
     <NavLink 
       to="/register" 
-      activeClassName="active"
-      className="nav-link"
+      className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
     >
       Register
     </NavLink>
     <NavLink 
       to="/login" 
-      activeClassName="active"
-      className="nav-link"
+      className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
     >
       Login
     </NavLink>
@@ -21,4 +19,5 @@ const AuthNav = () => (
 );
 
 export default AuthNav;
+
 
